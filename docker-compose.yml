@@ -1,5 +1,6 @@
 version: "3.4"
 services:
+  # mongodb is the data storage for the armory used to cache all characters.
   mongodb:
     image: mongo:4.2
     volumes:
@@ -11,3 +12,24 @@ services:
       - AUTH=${MONGODB_AUTH}
       - MONGO_INITDB_ROOT_USERNAME=${MONGODB_ROOT_USER}
       - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_ROOT_PASSWORD}
+  # armory-api is the backend service that serves characters over http.
+  armory-api:
+    image: ghcr.io/nokka/d2-armory-api:latest
+    volumes:
+      - ./d2s/:/data/d2s
+    ports:
+      - "8090:80"
+    environment:
+      - MONGO_USERNAME=armory
+      - MONGO_PASSWORD=not_secure_at_all
+      - D2S_PATH=/data/d2s
+    links:
+      - mongodb
+    entrypoint: sh -c "/app/armory"
+  # armory-gui is the frontend used for the armory served by NGINX.
+  armory-gui:
+    image: ghcr.io/nokka/d2-armory-gui:latest
+    ports:
+      - "9000:80"
+    links:
+      - armory-api
