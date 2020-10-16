@@ -20,9 +20,9 @@ services:
     ports:
       - "8090:80"
     environment:
-      - MONGO_USERNAME=armory
-      - MONGO_PASSWORD=not_secure_at_all
-      - D2S_PATH=/data/d2s
+      - MONGO_USERNAME=${MONGODB_API_USER}
+      - MONGO_PASSWORD=${MONGODB_API_PASSWORD}
+      - D2S_PATH=${D2_SAVE_PATH}
     links:
       - mongodb
     entrypoint: sh -c "/app/armory"
