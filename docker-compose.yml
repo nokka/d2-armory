@@ -22,8 +22,10 @@ services:
     environment:
       - MONGO_USERNAME=${MONGODB_API_USER}
       - MONGO_PASSWORD=${MONGODB_API_PASSWORD}
+      - STATISTICS_USER=${STATISTICS_USER}
+      - STATISTICS_PASSWORD=${STATISTICS_PASSWORD}
       - D2S_PATH=${D2_SAVE_PATH}
-    links:
+    depends_on:
       - mongodb
     entrypoint: sh -c "/app/armory"
   # armory-gui is the frontend used for the armory served by NGINX.
@@ -31,5 +33,5 @@ services:
     image: ghcr.io/nokka/d2-armory-gui:latest
     ports:
       - "9000:80"
-    links:
+    depends_on:
       - armory-api
