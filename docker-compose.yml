@@ -25,6 +25,7 @@ services:
       - STATISTICS_USER=${STATISTICS_USER}
       - STATISTICS_PASSWORD=${STATISTICS_PASSWORD}
       - D2S_PATH=${D2_SAVE_PATH}
+      - CORS_ENABLED=${CORS_ENABLED}
     depends_on:
       - mongodb
     entrypoint: sh -c "/app/armory"
