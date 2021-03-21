@@ -1,7 +1,7 @@
 # D2 Armory
 This repository consists of the parts required to run the D2 armory with [docker compose](https://docs.docker.com/compose/).
 
-The [docker-compose.yml][docker-compose.yml] file describes all components and their configuration.
+The [docker-compose.yml](docker-compose.yml) file describes all components and their configuration.
 
 ## Modules
 - [armory gui](https://github.com/nokka/d2-armory-gui)
